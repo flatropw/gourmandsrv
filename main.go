@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"log"
 	"net/http"
+	"net/url"
 )
 type (
 	Visitor struct {
@@ -11,6 +12,7 @@ type (
 		UserAgent  string
 		RequestUri string
 		Headers    http.Header
+		QueryParams url.Values
 	}
 )
 
@@ -22,6 +24,7 @@ func main() {
 				r.Header.Get("User-Agent"),
 				r.URL.Path,
 				r.Header,
+				r.URL.Query(),
 			}, "", "    ")
 		if err != nil {
 			panic(err)
